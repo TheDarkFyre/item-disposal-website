@@ -1,0 +1,25 @@
+.input {
+    width: 100%;
+    font-size: 1.4 rem;
+    padding: 1rem;
+    display: block;
+    border: 1px solid #97999A;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.submitButton {
+    padding: 0.5rem 1rem;
+    border: 0;
+    font-family: inherit;
+    background: #061420;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submitButton[disabled] {
+    opacity: 0.25;
+    color: gray;
+}
