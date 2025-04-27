@@ -17,18 +17,15 @@ export default function Home() {
                     isLoading={isLoading}
                     onSubmit={async (file) => {
                         setIsLoading(true);
-
-                        // Build FormData so browser sets multipart/form-data
                         const form = new FormData();
                         form.append("image", file);
 
                         const response = await fetch("/api/chatgpt", {
                             method: "POST",
-                            body: form,      // <-- no manual headers
+                            body: form,
                         });
 
                         setIsLoading(false);
-
                         const result = await response.json();
                         setChoices(Array.isArray(result.choices) ? result.choices : []);
                     }}
