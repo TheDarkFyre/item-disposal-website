@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef } from "react";
 import styles from "./prompt-form.module.css";
 
@@ -7,7 +9,7 @@ export default function PromptForm({ onSubmit, isLoading }) {
 
     const handleDrop = (e) => {
         e.preventDefault();
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        if (e.dataTransfer.files?.[0]) {
             setFile(e.dataTransfer.files[0]);
         }
     };
@@ -42,7 +44,7 @@ export default function PromptForm({ onSubmit, isLoading }) {
                 ref={fileInputRef}
                 style={{ display: "none" }}
                 onChange={(e) => {
-                    if (e.target.files[0]) setFile(e.target.files[0]);
+                    if (e.target.files?.[0]) setFile(e.target.files[0]);
                 }}
             />
 
@@ -50,6 +52,7 @@ export default function PromptForm({ onSubmit, isLoading }) {
                 className={styles.submitButton}
                 type="submit"
                 disabled={isLoading || !file}
+                value={isLoading ? "Uploading…" : "Submit"}
             />
         </form>
     );
