@@ -9,6 +9,7 @@
     text-align: center;
     color: #6b7280;
     transition: background-color 0.2s, border-color 0.2s;
+    font-weight: 700 !important;
 }
 
 .input:hover,
@@ -23,10 +24,10 @@
     padding: 0.75rem 1rem;
     border: none;
     font-family: inherit;
-    background: #3b82f6;
+    background: #6d8069;
     color: #ffffff;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700 !important;
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
@@ -34,14 +35,17 @@
 }
 
 .submitButton:hover:not([disabled]) {
-    background-color: #2563eb;
+    background-color: #3d483c;
+    font-weight: 700 !important;
 }
 
 .submitButton:active:not([disabled]) {
-    background-color: #1e40af;
+    background-color: #6a7169;
+    font-weight: 700 !important;
 }
 
 .submitButton[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
+    font-weight: 700 !important;
 }

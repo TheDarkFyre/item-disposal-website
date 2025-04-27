@@ -4,12 +4,12 @@
     justify-content: center;
     min-height: 100vh;
     padding: 2rem;
-    background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+    background: linear-gradient(135deg, #304529	,#22311d);
 }
 
 .card {
     width: 100%;
-    max-width: 30rem;
+    max-width: 90%;
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
@@ -28,9 +28,15 @@
     line-height: 1.6;
     background: #f3f4f6;
     border: 1px solid #d1d5db;
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid #4a6741;
     border-radius: 8px;
     padding: 1rem 1.25rem;
     color: #1f2937;
     font-size: 1rem;
+    font-weight: 500 !important;
+}
+
+.p {
+    text-align: center;
+    font-weight: 700 !important;
 }

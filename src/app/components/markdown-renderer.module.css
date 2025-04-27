@@ -1,0 +1,30 @@
+.markdown {
+    /* use your site’s default font and spacing */
+    font-family: inherit;
+    line-height: 1.6;
+  }
+  
+  /* code blocks */
+  .markdown pre {
+    background: #f5f5f5;
+    padding: 0.75em;
+    overflow-x: auto;
+    border-radius: 4px;
+  }
+  
+  /* inline code */
+  .markdown code {
+    background: #f5f5f5;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+  
+  /* headings spacing */
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4 {
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+  }
+  

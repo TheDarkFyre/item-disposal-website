@@ -1,12 +1,51 @@
+/* 1. Import both regular (400) & bold (700) */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+/* 2. Global reset */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. Every element is bold by default */
+html, body, * {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-weight: 500 !important;
 }
 
 html, body {
-  height: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: linear-gradient(237.94deg, #38F48E 0.42%, #08A0CA 100.7%);
-  padding: 1rem;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* 4. One-off regular box */
+.regular-textbox {
+  font-weight: 400 !important;
 }
