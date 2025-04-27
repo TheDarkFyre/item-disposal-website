@@ -3,7 +3,7 @@ import OpenAI from "openai";
 
 export const config = {
     api: {
-        bodyParser: false, // disable built-in JSON parser so we can use formData()
+        bodyParser: false, // must disable so we can use formData()
     },
 };
 
@@ -12,21 +12,21 @@ export async function POST(request) {
         apiKey: process.env.OPENAI_API_KEY,
     });
 
-    // Parse the incoming multipart/form-data
+    // 1. Grab the uploaded file from multipart/form-data
     const formData = await request.formData();
     const file = formData.get("image");
     if (!file) {
-        return NextResponse.json(
-            { error: "No image file provided" },
-            { status: 400 }
-        );
+        return NextResponse.json({ error: "No image provided" }, { status: 400 });
     }
 
-    // Convert the uploaded file to base64
+    // 2. Convert File → ArrayBuffer → Base64 string
     const arrayBuffer = await file.arrayBuffer();
     const base64Image = Buffer.from(arrayBuffer).toString("base64");
 
-    // Call OpenAI with the image
+    // 3. Call the OpenAI image-response endpoint
+    //    Messages array:
+    //      - developer prompt (disposal instructions in San Jose)
+    //      - user prompt with input_image containing the base64 blob
     const response = await openai.responses.create({
         model: "gpt-4.1-mini-2025-04-14",
         input: [
@@ -47,8 +47,13 @@ export async function POST(request) {
         ],
     });
 
-    // Return the API’s output
-    console.log(response.output_text);
-    //return NextResponse.json({ output_text: response.output_text });
-    //return NextResponse.json({ output_text: response.output_text });
+    // 4. Return JSON shaped as { choices: [...] }
+    return NextResponse.json({
+        choices: [
+            {
+                index: 0,
+                message: { content: response.output_text },
+            },
+        ],
+    });
 }
