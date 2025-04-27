@@ -9,10 +9,6 @@ A Next.js application that generates safe disposal instructions for everyday ite
 - **Responsive UI**: Clean, minimal interface built with React and CSS Modules.  
 - **Easy Deployment**: Ready for local development and Vercel deployment out of the box.
 
-## Demo
-
-![Screenshot of the upload form and response](public/window.svg)
-
 ## Getting Started
 
 ### Prerequisites
