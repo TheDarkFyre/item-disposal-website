@@ -2,6 +2,7 @@
 
 import PromptForm from "./components/prompt-form";
 import MarkdownRenderer from "./components/markdown-renderer";
+import { Analytics } from "@vercel/analytics/react"
 
 import styles from "./page.module.css";
 import { useState } from "react";
@@ -37,6 +38,7 @@ export default function Home() {
           <MarkdownRenderer className={styles.response} key={choice.index} content={choice.message.content} />
         ))}
       </div>
+      <Analytics />
     </main>
   );
 }
