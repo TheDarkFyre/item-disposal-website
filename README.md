@@ -1,4 +1,4 @@
-# Item Disposal Website
+# Recyclu
 
 A Next.js application that generates safe disposal instructions for everyday items based on uploaded images, leveraging OpenAI’s GPT-4 Image Response endpoint. Tailored for San Jose, California, it helps users determine whether to recycle parts, throw items in the trash, or take them to a specialized disposal center.
 
