@@ -39,6 +39,21 @@ export default function Home() {
         ))}
       </div>
       <Analytics />
+
+      <footer
+        style={{
+          position: "fixed",
+          bottom: "1rem",
+          right: "1rem",
+          fontSize: "3rem",
+          color: "#555",
+        }}
+      >
+        Recyclu
+        <img src="/recyclu.jpg" alt="Recyclu Logo" className={styles.picture} />
+      </footer>
+
     </main>
+    
   );
 }
