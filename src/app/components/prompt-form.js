@@ -39,6 +39,7 @@ export default function PromptForm({ onSubmit, isLoading }) {
       <input
         type="file"
         accept="image/*"
+        capture="user"
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={(e) => {
