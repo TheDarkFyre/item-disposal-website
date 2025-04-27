@@ -27,7 +27,7 @@ npm install       # or yarn install
 
 ### Environment Variables
 
-Create a file named `.env.local` in the project root with your OpenAI API key:
+Create a file named `.env` in the project root with your OpenAI API key:
 
 ```env
 OPENAI_API_KEY=sk-...
