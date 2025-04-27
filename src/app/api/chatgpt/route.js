@@ -1,34 +1,59 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-export async function POST(request) {
+export const config = {
+    api: {
+        bodyParser: false, // must disable so we can use formData()
+    },
+};
 
+export async function POST(request) {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
-    })
+    });
 
-    // Grabbing the user's input
-    const params = await request.json();
+    // 1. Grab the uploaded file from multipart/form-data
+    const formData = await request.formData();
+    const file = formData.get("image");
+    if (!file) {
+        return NextResponse.json({ error: "No image provided" }, { status: 400 });
+    }
 
-    // Passing it to the OpenAI API
-    const response = await openai.chat.completions.create({
-        model: 'gpt-4.1-mini-2025-04-14',
-        messages: [
+    // 2. Convert File → ArrayBuffer → Base64 string
+    const arrayBuffer = await file.arrayBuffer();
+    const base64Image = Buffer.from(arrayBuffer).toString("base64");
+
+    // 3. Call the OpenAI image-response endpoint
+    //    Messages array:
+    //      - developer prompt (disposal instructions in San Jose)
+    //      - user prompt with input_image containing the base64 blob
+    const response = await openai.responses.create({
+        model: "gpt-4.1-mini-2025-04-14",
+        input: [
             {
-                role: 'system',
-                content: 'Given an image, tell me how to safely dispose of the item (i.e. should I recycle parts, or throw it all in the trash, or does it need to be taken to a disposal center). This should be specific for the city of San Jose, California.'
+                role: "developer",
+                content:
+                    "Given an image, tell me how to safely dispose of the item (i.e. should I recycle parts, or throw it all in the trash, or does it need to be taken to a disposal center). This should be specific for the city of San Jose, California.",
             },
             {
-                role: 'user',
-                content: params.prompt // Image that the user uploads
-            }
+                role: "user",
+                content: [
+                    {
+                        type: "input_image",
+                        image_url: "data:image/jpeg;base64," + base64Image,
+                    },
+                ],
+            },
         ],
-        temperature: 0,
-        max_tokens: 1024,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-    })
+    });
 
-    return NextResponse.json(response);
+    // 4. Return JSON shaped as { choices: [...] }
+    return NextResponse.json({
+        choices: [
+            {
+                index: 0,
+                message: { content: response.output_text },
+            },
+        ],
+    });
 }
