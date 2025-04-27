@@ -5,44 +5,41 @@ import styles from "./page.module.css";
 import { useState } from "react";
 
 export default function Home() {
+    const [choices, setChoices] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const [choices, setChoices] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+    return (
+        <main className={styles.main}>
+            <div className={styles.card}>
+                <p>Hello!</p>
 
-  return (
-    <main className={styles.main}>
-      <div className={styles.card}>
+                <PromptForm
+                    isLoading={isLoading}
+                    onSubmit={async (file) => {
+                        setIsLoading(true);
 
-      
-      <p>Hello!</p>
+                        // Build FormData so browser sets multipart/form-data
+                        const form = new FormData();
+                        form.append("image", file);
 
-      <PromptForm
-      isLoading={isLoading}
-        onSubmit={async (prompt) => {
-          setIsLoading(true)
-          const response = await fetch("/api/chatgpt", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              prompt,
-            }),
-          });
+                        const response = await fetch("/api/chatgpt", {
+                            method: "POST",
+                            body: form,      // <-- no manual headers
+                        });
 
-          setIsLoading(false)
-          const result = await response.json();
-          setChoices(result.choices);
-        }}
-      />
+                        setIsLoading(false);
 
-      {choices.map(choice => {
-        return (
-          <p className={styles.response} key={choice.index}>{choice.message.content}</p>
-        )
-        }
-      )}
-</div>
-    </main>
-  );
+                        const result = await response.json();
+                        setChoices(Array.isArray(result.choices) ? result.choices : []);
+                    }}
+                />
+
+                {choices?.map((choice) => (
+                    <p className={styles.response} key={choice.index}>
+                        {choice.message.content}
+                    </p>
+                ))}
+            </div>
+        </main>
+    );
 }
